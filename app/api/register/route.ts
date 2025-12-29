@@ -64,9 +64,12 @@ export async function POST(request: NextRequest) {
     }
 
     const cookieStore = await cookies();
+    const protocol = request.headers.get('x-forwarded-proto') || 'http';
+    const isSecure = protocol === 'https';
+    
     cookieStore.set('session_id', sessionId, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: isSecure,
       sameSite: 'lax',
       maxAge: 60 * 60 * 24,
       path: '/',

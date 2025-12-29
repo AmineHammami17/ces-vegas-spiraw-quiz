@@ -24,7 +24,7 @@ const orbitron = Orbitron({
 });
 
 export const metadata: Metadata = {
-  title: 'CES Quiz - Spiraw Challenge',
+  title: 'Spiraw Quiz - Challenge Your Knowledge',
   description: 'Test your knowledge about spirulina and nutrition in this interactive quiz game!',
 };
 

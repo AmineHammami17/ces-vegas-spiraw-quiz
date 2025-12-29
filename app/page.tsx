@@ -16,7 +16,7 @@ export default function Home() {
           transition={{ duration: 0.6 }}
         >
           <h1 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-[#00FF88] to-[#00A86B] bg-clip-text text-transparent animate-glow">
-            Spiraw Challenge
+            Spiraw Quiz
           </h1>
           <p className="text-xl md:text-2xl text-[#E0E0E0] mb-2">
             Test Your Knowledge
