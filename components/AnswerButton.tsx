@@ -55,6 +55,14 @@ export default function AnswerButton({
     onAnimationStart,
     onAnimationEnd,
     onAnimationIteration,
+    onDragStart,
+    onDrag,
+    onDragEnd,
+    onDragEnter,
+    onDragExit,
+    onDragLeave,
+    onDragOver,
+    onDrop,
     ...safeProps
   } = props;
 
