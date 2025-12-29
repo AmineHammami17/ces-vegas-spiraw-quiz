@@ -34,6 +34,21 @@ export default function Button({
     ? 'hover:shadow-[0_0_20px_rgba(0,255,136,0.6)] hover:shadow-[#00FF88]/60'
     : '';
 
+  const {
+    onAnimationStart,
+    onAnimationEnd,
+    onAnimationIteration,
+    onDragStart,
+    onDrag,
+    onDragEnd,
+    onDragEnter,
+    onDragExit,
+    onDragLeave,
+    onDragOver,
+    onDrop,
+    ...safeProps
+  } = props;
+
   return (
     <motion.button
       className={`${baseStyles} ${variants[variant]} ${glowEffect} ${className}`}
@@ -44,7 +59,7 @@ export default function Button({
         stiffness: 400,
         damping: 25,
       }}
-      {...props}
+      {...safeProps}
     >
       {children}
     </motion.button>
