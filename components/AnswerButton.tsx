@@ -16,18 +16,20 @@ export default function AnswerButton({
   isCorrect = false,
   isWrong = false,
   className = '',
+  onClick,
+  disabled,
   ...props
 }: AnswerButtonProps) {
   const [ripple, setRipple] = useState<{ x: number; y: number } | null>(null);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (props.onClick && !isCorrect && !isWrong) {
+    if (onClick && !isCorrect && !isWrong) {
       const rect = e.currentTarget.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       setRipple({ x, y });
       setTimeout(() => setRipple(null), 600);
-      props.onClick(e);
+      onClick(e);
     }
   };
 
@@ -45,23 +47,30 @@ export default function AnswerButton({
     styles += ' bg-gradient-to-r from-[#1A1F3A] to-[#0A2540] border-[#0A2540] text-[#E0E0E0] hover:border-[#00FF88]/60 hover:bg-gradient-to-r hover:from-[#1A1F3A]/90 hover:to-[#0A2540]/90 hover:shadow-lg hover:shadow-[#00FF88]/20';
   }
   
-  if (props.disabled && !isCorrect && !isWrong) {
+  if (disabled && !isCorrect && !isWrong) {
     styles += ' opacity-50 cursor-not-allowed';
   }
+
+  const {
+    onAnimationStart,
+    onAnimationEnd,
+    onAnimationIteration,
+    ...safeProps
+  } = props;
 
   return (
     <motion.button
       className={`${styles} ${className}`}
-      whileHover={!isCorrect && !isWrong && !props.disabled ? { scale: 1.02, x: 5 } : {}}
-      whileTap={!isCorrect && !isWrong && !props.disabled ? { scale: 0.98 } : {}}
-      disabled={isCorrect || isWrong || props.disabled}
+      whileHover={!isCorrect && !isWrong && !disabled ? { scale: 1.02, x: 5 } : {}}
+      whileTap={!isCorrect && !isWrong && !disabled ? { scale: 0.98 } : {}}
+      disabled={isCorrect || isWrong || disabled}
       onClick={handleClick}
       transition={{
         type: 'spring',
         stiffness: 400,
         damping: 25,
       }}
-      {...props}
+      {...safeProps}
     >
       {ripple && (
         <motion.span

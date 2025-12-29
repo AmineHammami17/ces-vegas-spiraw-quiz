@@ -112,33 +112,36 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 
 ## Deployment
 
-### Quick Start
+### Server Deployment (102.211.209.82)
 
-1. **Set Environment Variables** in your deployment platform:
-   ```env
-   DATABASE_URL=postgresql://user:password@host:port/database
-   SESSION_SECRET=your_secure_random_string
-   ```
+**Quick Start Guide:** See [QUICK_DEPLOY.md](./QUICK_DEPLOY.md) for step-by-step instructions.
 
-2. **Run Database Schema**: Execute `lib/db-schema.sql` on your production database
+**Full Guide:** See [DEPLOYMENT.md](./DEPLOYMENT.md) for comprehensive deployment instructions.
 
-3. **Deploy**: Push to your platform (Vercel, Netlify, Railway, etc.)
+#### Quick Steps:
+1. Push code to Git repository
+2. SSH into your server: `ssh root@102.211.209.82`
+3. Install Docker: `curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh`
+4. Clone repository: `git clone <your-repo-url> /var/www/ces-quiz-website`
+5. Create `.env.production` with MongoDB URI and SESSION_SECRET
+6. Deploy: `docker compose up -d --build`
+7. Set up Nginx reverse proxy (see DEPLOYMENT.md)
 
-### Detailed Deployment Guide
+### Environment Variables
 
-See [DEPLOYMENT.md](./DEPLOYMENT.md) for comprehensive deployment instructions including:
-- Platform-specific setup (Vercel, Netlify, Railway, Docker)
-- Environment variable configuration
-- Database connection optimization for serverless
-- Security headers and production optimizations
-- Troubleshooting guide
+For production, create `.env.production`:
+```env
+MONGODB_URI=mongodb://admin:password123@mongodb:27017/ces_quiz?authSource=admin
+SESSION_SECRET=your_secure_random_string_32_chars_minimum
+NODE_ENV=production
+NEXT_PUBLIC_APP_URL=http://102.211.209.82
+```
 
-### Vercel (Recommended)
+### Other Deployment Options
 
-1. Push your code to GitHub
-2. Import repository in Vercel
-3. Add environment variables (`DATABASE_URL`, `SESSION_SECRET`)
-4. Deploy - automatic on every push to main branch
+- **Vercel**: Push to GitHub, import in Vercel, add environment variables
+- **Docker**: Use `docker-compose.yml` for containerized deployment
+- **Any Node.js Host**: Standard Next.js deployment with MongoDB connection
 
 ## Quiz Rules
 
